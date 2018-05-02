@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id "net.ltgt.apt" version "0.15"
+    id "net.ltgt.apt-eclipse" version "0.15"
+    id 'org.springframework.boot' version '2.0.1.RELEASE'
+    id "io.spring.dependency-management" version "1.0.5.RELEASE"
+}
+
+ext { mapstructVersion = "1.2.0.Final" }
+
+repositories{ mavenCentral() }
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter"
+    compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    testCompile "junit:junit:4.12"
+    testCompile "org.springframework.boot:spring-boot-test"
+    testCompile "org.springframework:spring-test"
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs = ['-Amapstruct.suppressGeneratorTimestamp=true']
+}
